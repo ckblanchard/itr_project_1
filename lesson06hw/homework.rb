@@ -144,3 +144,141 @@
 #    it.
 #
 ################################################################################
+# $LOAD_PATH.unshift(File.join(__FILE__, "../lib"))
+
+require_relative "lib/player"
+require_relative "lib/secret_number"
+require_relative "lib/game"
+# require_relative "lib/not_number_exception"
+
+# Introduce game and creator. Moved here for flow reasons
+creator_name = "Craig Blanchard"
+puts "Welcome to the Secret Number game, created by #{creator_name}."
+
+####################################################
+
+# What you want is the Integer() method, which will raise an exception
+# when given an invalid argument. Then you catch the exception.
+
+# begin
+#     n = Integer(str)
+# rescue ArgumentError
+#     puts "Not an integer!"
+# end
+
+# def get_number
+#   number = gets.chomp
+
+#   if number == "red"
+#     raise ColorChoiceException
+#   # else
+#   #   puts "You chose #{color}"
+#   end
+
+# end
+
+# begin
+#   get_number
+# rescue NotNumberException => error
+#   puts "I had an error: #{error.message}"
+# end
+
+####################################################
+
+def get_low_num
+  puts "Enter the low number first."
+  i = gets.chomp
+  i_num = i.to_i
+  if i_num.to_s == i
+    @low_num = i_num
+    return true
+  else
+    return false
+  end
+end
+
+def get_high_num
+  puts "Now enter the high number."
+  i = gets.chomp
+  i_num = i.to_i
+  if i_num.to_s == i
+    @high_num = i_num
+    return true
+  else
+    return false
+  end
+end
+
+def guesses_num
+  puts "And finally, how many chances would you like?"
+  i = gets.chomp
+  i_num = i.to_i
+  if i_num.to_s == i
+    @guesses_allowed = i_num
+    return true
+  else
+    return false
+  end
+end
+
+
+# Loop getting info and instantiating a new game
+loop do
+
+  # Identify player name, get range and number of guesses
+  name = ""
+  until name != ""
+    puts "Please enter your name."
+    name = gets.chomp
+  end
+  puts "Hi, #{name}! Before we can begin, we need some information. What range of numbers would you like to choose from?"
+  # low_number = ""
+  # until low_number.class != String
+  #   puts "Please enter a number."
+  #   low_number = gets.chomp.to_i
+  # end
+  until get_low_num == true
+    puts "It needs to be a number."
+  end
+  until get_high_num == true
+    puts "It needs to be a number."
+  end
+  until guesses_num == true
+    puts "It needs to be a number."
+  end
+  # puts "Now enter the high end of the range."
+  # high_number = gets.chomp.to_i
+  # puts "And finally, how many chances would you like?"
+  # guesses_allowed = gets.chomp.to_i
+  # Create range to pass to the new game
+  set_of_numbers = Range.new(@low_num,@high_num)
+
+
+  # Introduce logic and error handling to make sure a player enters only numbers for the range and guesses
+
+  game = Game.new(name, set_of_numbers, @guesses_allowed)
+  game.start_game
+
+  puts "Would you like to play again? Type \"yes\" or \"cancel\" to exit."
+  play_again = gets.chomp
+  break if play_again.downcase == "cancel"
+end
+
+# TestForInteger.get_low_num
+# TestForInteger.get_high_num
+
+# until TestForInteger.get_low_num == true
+# end
+# puts @low_num
+# until TestForInteger.get_high_num == true
+# end
+# puts @high_num
+
+
+# Below tests output for various game class methods
+# puts game.guesses_allowed
+# puts game.current_guess_count
+# puts game.secret_number.secret_number
+# puts game.set_of_numbers
+# puts game.print_created_by
+# puts game.current_guess
