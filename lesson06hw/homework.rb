@@ -149,7 +149,8 @@
 require_relative "lib/player"
 require_relative "lib/secret_number"
 require_relative "lib/game"
-# require_relative "lib/not_number_exception"
+require_relative "lib/test_for_integer"
+include TestForInteger
 
 # Introduce game and creator. Moved here for flow reasons
 creator_name = "Craig Blanchard"
@@ -185,41 +186,41 @@ puts "Welcome to the Secret Number game, created by #{creator_name}."
 
 ####################################################
 
-def get_low_num
-  puts "Enter the low number first."
-  i = gets.chomp
-  i_num = i.to_i
-  if i_num.to_s == i
-    @low_num = i_num
-    return true
-  else
-    return false
-  end
-end
+# def get_low_num
+#   puts "Enter the low number first."
+#   i = gets.chomp
+#   i_num = i.to_i
+#   if i_num.to_s == i
+#     @low_num = i_num
+#     return true
+#   else
+#     return false
+#   end
+# end
 
-def get_high_num
-  puts "Now enter the high number."
-  i = gets.chomp
-  i_num = i.to_i
-  if i_num.to_s == i
-    @high_num = i_num
-    return true
-  else
-    return false
-  end
-end
+# def get_high_num
+#   puts "Now enter the high number."
+#   i = gets.chomp
+#   i_num = i.to_i
+#   if i_num.to_s == i
+#     @high_num = i_num
+#     return true
+#   else
+#     return false
+#   end
+# end
 
-def guesses_num
-  puts "And finally, how many chances would you like?"
-  i = gets.chomp
-  i_num = i.to_i
-  if i_num.to_s == i
-    @guesses_allowed = i_num
-    return true
-  else
-    return false
-  end
-end
+# def guesses_num
+#   puts "And finally, how many chances would you like?"
+#   i = gets.chomp
+#   i_num = i.to_i
+#   if i_num.to_s == i
+#     @guesses_allowed = i_num
+#     return true
+#   else
+#     return false
+#   end
+# end
 
 
 # Loop getting info and instantiating a new game

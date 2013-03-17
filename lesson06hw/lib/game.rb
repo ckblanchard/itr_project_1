@@ -1,6 +1,8 @@
 class Game
 attr_accessor :current_guess
 attr_reader :guesses_allowed, :current_guess_count, :set_of_numbers, :secret_number
+require_relative "./test_for_integer"
+include TestForInteger
 
   # Class variable containing hash of result messages
   @@messages = {
@@ -26,6 +28,19 @@ attr_reader :guesses_allowed, :current_guess_count, :set_of_numbers, :secret_num
     @current_guess_count += 1
     @guesses_allowed -= 1
   end
+
+  # Method to determine if guesses are actually integers
+  # def is_integer
+  #   i = gets.chomp
+  #   i_num = i.to_i
+  #   if i_num.to_s == i
+  #     @is_integer = i_num
+  #     return true
+  #   else
+  #     puts "That's not a number."
+  #     return false
+  #   end
+  # end
 
   # Method to test player's guess
   def guess_correct?(guess)
@@ -71,7 +86,10 @@ attr_reader :guesses_allowed, :current_guess_count, :set_of_numbers, :secret_num
       else
         puts "You have " + @guesses_allowed.to_s + " #{guesses_plural} left."
       end
-      @current_guess = gets.chomp.to_i
+      until is_integer == true
+      end
+      @current_guess = @is_integer
+      # @current_guess = gets.chomp.to_i
       increment_guess_count
       if guess_correct?(@current_guess)
         puts "Thank you for playing the game!"
@@ -79,6 +97,9 @@ attr_reader :guesses_allowed, :current_guess_count, :set_of_numbers, :secret_num
         break
       end
     end
+
+    # TestForInteger.is_integer
+    # @is_integer
 
     # Player failed to guess correctly in allotted guess amount
     # Print lose message
